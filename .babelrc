@@ -1,0 +1,13 @@
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    //VD: mình import file App.ts thì thay vì .src/App.ts nó sẽ ghi là @/App.ts
+                    "@": "./src"
+                }
+            }
+        ]
+    ]
+}
