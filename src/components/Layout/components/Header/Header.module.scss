@@ -19,9 +19,13 @@
     align-items: center;
 }
 
+.search,
+.search__result {
+    width: 361px;
+}
+
 .search {
     position: relative;
-    width: 361px;
     height: 46px;
     background-color: rgba(22, 24, 35, 0.06);
     padding-left: 16px;
@@ -77,6 +81,12 @@
             -ms-transform: translate(-50%, -50%);
             -o-transform: translate(-50%, -50%);
         }
+    }
+    &__title {
+        font-size: 1.4rem;
+        color: rgba(22, 24, 35, 0.5);
+        padding: 5px 12px;
+        font-weight: 500;
     }
 }
 
