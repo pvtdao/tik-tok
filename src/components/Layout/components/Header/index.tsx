@@ -7,6 +7,7 @@ import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-s
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '@/components/Popper';
 import { AccountItem } from '@/components/AccountItem';
+import Button from '@/components/Button';
 
 // cx giúp viết className dễhơn.
 // VD: post-item thì không thể viết styles.post-item (Hoặc viết styles['post-item']) => Xấu
@@ -48,7 +49,10 @@ function Header() {
           </div>
         </Tippy>
 
-        <div className={cx('action')}></div>
+        <div className={cx('action')}>
+          <Button text>Upload</Button>
+          <Button primary>Log in</Button>
+        </div>
       </div>
     </header>
   );
