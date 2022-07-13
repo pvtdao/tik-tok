@@ -12,7 +12,6 @@ type PropsType = {
 };
 
 function Button({ children, onClick, to, href, primary, className = '', ...restProps }: ButtonSchema) {
-  console.log('🚀 ~ file: index.tsx ~ line 15 ~ Button ~ className', className);
   let Component: any = 'button';
 
   const _props: PropsType = {
