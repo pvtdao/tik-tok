@@ -1,0 +1,25 @@
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames/bind';
+import React from 'react';
+import styles from './Menu.module.scss';
+
+type MenuHeaderPropsType = {
+  title: string;
+  onBack: () => void;
+};
+
+const cx = classNames.bind(styles);
+
+function MenuHeader({ title, onBack }: MenuHeaderPropsType) {
+  return (
+    <header className={cx('header')}>
+      <button className={cx('back-btn')} onClick={onBack}>
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
+      <h4 className={cx('header__title')}>{title}</h4>
+    </header>
+  );
+}
+
+export default MenuHeader;

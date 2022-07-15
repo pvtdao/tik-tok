@@ -17,16 +17,59 @@ import { Wrapper as PopperWrapper } from '@/components/Popper';
 import { AccountItem } from '@/components/AccountItem';
 import Button from '@/components/Button';
 import PopperMenu from '@/components/Popper/Menu';
+import { ItemType } from '@/schema/menu';
 
 // cx giúp viết className dễhơn.
 // VD: post-item thì không thể viết styles.post-item (Hoặc viết styles['post-item']) => Xấu
 // Dùng cx: cx("post-item")
 const cx = classNames.bind(styles);
 
-const MENU_ITEMS = [
+const MENU_ITEMS: ItemType[] = [
   {
     icon: <FontAwesomeIcon icon={faEarthAsia} />,
     title: 'English',
+    // Thằng nào có children thì thằng đó có sub menu
+    children: {
+      title: 'Language',
+      data: [
+        {
+          type: 'language',
+          value: 'en',
+          title: 'English',
+
+          children: {
+            title: 'Accent',
+            data: [
+              {
+                type: 'english-accent',
+                value: 'american',
+                title: 'American',
+              },
+              {
+                type: 'english-accent',
+                value: 'british',
+                title: 'British',
+              },
+            ],
+          },
+        },
+        {
+          type: 'language',
+          value: 'vi',
+          title: 'Tiếng Việt',
+        },
+        {
+          type: 'language',
+          value: 'fr',
+          title: 'Français',
+        },
+        {
+          type: 'language',
+          value: 'es',
+          title: 'Español',
+        },
+      ],
+    },
   },
   {
     icon: <FontAwesomeIcon icon={faQuestionCircle} />,

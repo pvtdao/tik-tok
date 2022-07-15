@@ -1,0 +1,4 @@
+Làm menu nhiều cấp: 
+    Bỏ mấy cái menu đó vô 1 cái mảng.
+    Lúc hiện menu thì luôn hiện cái phần tử cuối cùng của mảng.
+    Lúc back lại thì chỉ cần xóa phần tử cuối mảng đi là được hehe

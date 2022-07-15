@@ -4,14 +4,10 @@ import { Wrapper as PopperMenuWrapper } from '@/components/Popper';
 import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
+import MenuHeader from './MenuHeader';
+import { ItemType } from '@/schema/menu';
 
 const cx = classNames.bind(styles);
-
-export type ItemType = {
-  icon?: React.ReactElement;
-  title: string;
-  to?: string;
-};
 
 type PopperMenuPropsType = {
   children: React.ReactElement;
@@ -19,10 +15,26 @@ type PopperMenuPropsType = {
 };
 
 function PopperMenu({ children, items }: PopperMenuPropsType) {
+  const [historyMenu, setHistoryMenu] = React.useState<{ data: ItemType[]; title?: string }[]>([{ data: items }]);
+  const currentMenu = historyMenu[historyMenu.length - 1]; // Menu hiện tại sẽ lấy phần tử cuối cùng của mảng history
+
+  const onChooseMenu = React.useCallback((isParent: boolean, item: any) => {
+    if (isParent) {
+      setHistoryMenu((prev) => [...prev, item]);
+    }
+  }, []);
+
+  const onBack = React.useCallback(() => {
+    setHistoryMenu((prev) => prev.slice(0, prev.length - 1));
+  }, []);
+
   const renderItem: any = () => {
     if (!items) return null;
 
-    return items.map((item, index) => <MenuItem key={index} data={item} />);
+    return currentMenu.data.map((item, index) => {
+      const isParent = !!item.children;
+      return <MenuItem key={index} data={item} onChooseMenu={() => onChooseMenu(isParent, item.children)} />;
+    });
   };
 
   return (
@@ -32,7 +44,12 @@ function PopperMenu({ children, items }: PopperMenuPropsType) {
       placement="bottom-end"
       render={(attrs) => (
         <div className={cx('menu-list')} tabIndex={-1} {...attrs}>
-          <PopperMenuWrapper className={cx('menu-popper-wrapper')}>{renderItem()}</PopperMenuWrapper>
+          <PopperMenuWrapper className={cx('menu-popper-wrapper')}>
+            <>
+              {currentMenu.title && <MenuHeader title={currentMenu.title} onBack={onBack} />}
+              {renderItem()}
+            </>
+          </PopperMenuWrapper>
         </div>
       )}
     >
