@@ -12,8 +12,11 @@ type MenuItemPropType = {
 const cx = classNames.bind(styles);
 
 function MenuItem({ data, onChooseMenu }: MenuItemPropType) {
+  const classes = cx('menu-item', {
+    separate: data.separate,
+  });
   return (
-    <Button className={cx('menu-item')} to={data.to} onClick={onChooseMenu} leftIcon={data.icon}>
+    <Button className={classes} to={data.to} onClick={onChooseMenu} leftIcon={data.icon}>
       {data.title}
     </Button>
   );

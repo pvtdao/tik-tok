@@ -9,15 +9,22 @@ import {
   faMagnifyingGlass,
   faEllipsisVertical,
   faEarthAsia,
-  faQuestionCircle,
+  faGear,
+  faUser,
   faKeyboard,
+  faQuestionCircle,
+  faCoins,
+  faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react/headless';
+import TippyHeadless from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
 import { Wrapper as PopperWrapper } from '@/components/Popper';
 import { AccountItem } from '@/components/AccountItem';
 import Button from '@/components/Button';
 import PopperMenu from '@/components/Popper/Menu';
 import { ItemType } from '@/schema/menu';
+import { faComments, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import 'tippy.js/dist/tippy.css';
 
 // cx giúp viết className dễhơn.
 // VD: post-item thì không thể viết styles.post-item (Hoặc viết styles['post-item']) => Xấu
@@ -82,13 +89,50 @@ const MENU_ITEMS: ItemType[] = [
   },
 ];
 
+const CURRENT_USER = true;
+const BUTTON_CURRENT_USER = [
+  {
+    icon: faPenToSquare,
+    title: 'Upload video',
+  },
+  {
+    icon: faComments,
+    title: 'Messages',
+  },
+];
+
+const USER_MENU = [
+  {
+    icon: <FontAwesomeIcon icon={faUser} />,
+    title: 'View profile',
+    to: '/@hoa',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faCoins} />,
+    title: 'Coins',
+    to: '/coin',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faGear} />,
+    title: 'Settings',
+    to: '/settings',
+  },
+  ...MENU_ITEMS,
+  {
+    icon: <FontAwesomeIcon icon={faSignOut} />,
+    title: 'Log out',
+    to: '/logout',
+    separate: true,
+  },
+];
+
 function Header() {
   return (
     <header className={cx('wrapper')}>
       <div className={cx('container')}>
         <img src={images.logo} alt="tiktok" />
 
-        <Tippy
+        <TippyHeadless
           interactive
           render={(attrs) => (
             <div className={cx('search__result')} tabIndex={-1} {...attrs}>
@@ -115,16 +159,40 @@ function Header() {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>
-        </Tippy>
+        </TippyHeadless>
 
         <div className={cx('action')}>
-          <Button text>Upload</Button>
-          <Button primary>Log in</Button>
+          {CURRENT_USER ? (
+            <>
+              {BUTTON_CURRENT_USER.map(({ title, icon }, index) => {
+                return (
+                  <Tippy key={index} delay={[0, 100]} content={title} placement="bottom">
+                    <button className={cx('action__btn')}>
+                      <FontAwesomeIcon icon={icon} />
+                    </button>
+                  </Tippy>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <Button text>Upload</Button>
+              <Button primary>Log in</Button>
+            </>
+          )}
 
-          <PopperMenu items={MENU_ITEMS}>
-            <button className={cx('more-btn')}>
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </button>
+          <PopperMenu items={CURRENT_USER ? USER_MENU : MENU_ITEMS}>
+            {CURRENT_USER ? (
+              <img
+                className={cx('user-avatar')}
+                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/f75993e97bd5424690cb3c702fc88b0d~c5_100x100.jpeg?x-expires=1658556000&x-signature=ajmuY0tgC5n%2BpEpCalJoF%2BfY6JI%3D"
+                alt="Đào Lê Phương Hoa"
+              />
+            ) : (
+              <button className={cx('more-btn')}>
+                <FontAwesomeIcon icon={faEllipsisVertical} />
+              </button>
+            )}
           </PopperMenu>
         </div>
       </div>

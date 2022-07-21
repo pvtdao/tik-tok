@@ -11,7 +11,17 @@ type PropsType = {
   [key: string]: any;
 };
 
-function Button({ children, onClick, to, href, primary, className = '', ...restProps }: ButtonSchema) {
+function Button({
+  children,
+  onClick,
+  to,
+  href,
+  primary,
+  className = '',
+  leftIcon,
+  rightIcon,
+  ...restProps
+}: ButtonSchema) {
   let Component: any = 'button';
 
   const _props: PropsType = {
@@ -50,9 +60,9 @@ function Button({ children, onClick, to, href, primary, className = '', ...restP
 
   return (
     <Component className={classes} {..._props}>
-      {restProps.leftIcon && <span className={cx('icon')}>{restProps.leftIcon}</span>}
+      {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
       <span className={cx('title')}>{children}</span>
-      {restProps.rightIcon && <span className={cx('icon')}>{restProps.rightIcon}</span>}
+      {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
     </Component>
   );
 }

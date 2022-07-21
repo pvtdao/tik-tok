@@ -28,6 +28,10 @@ function PopperMenu({ children, items }: PopperMenuPropsType) {
     setHistoryMenu((prev) => prev.slice(0, prev.length - 1));
   }, []);
 
+  const handleOnHide = React.useCallback(() => {
+    setHistoryMenu((prev) => prev.slice(0, 1));
+  }, []);
+
   const renderItem: any = () => {
     if (!items) return null;
 
@@ -40,8 +44,10 @@ function PopperMenu({ children, items }: PopperMenuPropsType) {
   return (
     <Tippy
       interactive
+      offset={[12, 10]} //Offset là vị trí (số đầu là chiều ngang, số sau là chiều dọc)
       delay={[0, 70000]}
       placement="bottom-end"
+      onHide={handleOnHide}
       render={(attrs) => (
         <div className={cx('menu-list')} tabIndex={-1} {...attrs}>
           <PopperMenuWrapper className={cx('menu-popper-wrapper')}>

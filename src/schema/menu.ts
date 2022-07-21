@@ -3,6 +3,7 @@ export type ItemType = {
   title: string;
   to?: string;
   children?: SubmenuType;
+  separate?: boolean;
 };
 
 type SubmenuType = {
