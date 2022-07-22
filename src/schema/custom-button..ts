@@ -11,6 +11,9 @@ export type ButtonSchema = {
   text?: boolean;
   disabled?: boolean;
   rounded?: boolean;
+  blackWhite?: boolean;
+  color?: string;
+  borderColor?: string;
 
   className?: string;
 

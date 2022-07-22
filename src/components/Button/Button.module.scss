@@ -40,7 +40,6 @@
     align-items: center;
     justify-content: center;
     width: 24px;
-    opacity: 0.9;
 }
 
 .rounded {
@@ -89,5 +88,14 @@
 .text {
     &:hover {
         text-decoration: underline;
+    }
+}
+
+.black-white {
+    color: var(--black);
+    border: 1px solid #1618231f;
+    &:hover {
+        background-color: #16182308;
+        border: 1px solid #1618231f;
     }
 }

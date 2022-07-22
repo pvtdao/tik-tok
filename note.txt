@@ -2,3 +2,6 @@ Làm menu nhiều cấp:
     Bỏ mấy cái menu đó vô 1 cái mảng.
     Lúc hiện menu thì luôn hiện cái phần tử cuối cùng của mảng.
     Lúc back lại thì chỉ cần xóa phần tử cuối mảng đi là được hehe
+
+Lỗi forwardRef: Là bị thiếu ref từ thằng components của mình. Sử dụng React.forwardRef đểsử lý
+    Xem file Image để biết cách xài

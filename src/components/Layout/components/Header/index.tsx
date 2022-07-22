@@ -1,39 +1,41 @@
-import React from 'react';
-import styles from './Header.module.scss';
-import classNames from 'classnames/bind';
+/* eslint-disable jsx-a11y/alt-text */
 import images from '@/assets/images';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleXmark,
-  faSpinner,
-  faMagnifyingGlass,
-  faEllipsisVertical,
-  faEarthAsia,
-  faGear,
-  faUser,
-  faKeyboard,
-  faQuestionCircle,
-  faCoins,
-  faSignOut,
-} from '@fortawesome/free-solid-svg-icons';
-import TippyHeadless from '@tippyjs/react/headless';
-import Tippy from '@tippyjs/react';
-import { Wrapper as PopperWrapper } from '@/components/Popper';
 import { AccountItem } from '@/components/AccountItem';
 import Button from '@/components/Button';
+import {
+  AnalyticsIcon,
+  CoinIcon,
+  KeyBoardIcon,
+  LanguageIcon,
+  LogoutIcon,
+  MessageIcon,
+  QuestionIcon,
+  SettingIcon,
+  UpLoadIcon,
+  UserIcon,
+} from '@/components/Icons';
+import Image from '@/components/Image';
+import { Wrapper as PopperWrapper } from '@/components/Popper';
 import PopperMenu from '@/components/Popper/Menu';
 import { ItemType } from '@/schema/menu';
-import { faComments, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { faCircleXmark, faEllipsisVertical, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Tippy from '@tippyjs/react';
+import TippyHeadless from '@tippyjs/react/headless';
+import classNames from 'classnames/bind';
+import React from 'react';
 import 'tippy.js/dist/tippy.css';
+import styles from './Header.module.scss';
 
 // cx giúp viết className dễhơn.
 // VD: post-item thì không thể viết styles.post-item (Hoặc viết styles['post-item']) => Xấu
 // Dùng cx: cx("post-item")
 const cx = classNames.bind(styles);
+const CURRENT_USER = true;
 
 const MENU_ITEMS: ItemType[] = [
   {
-    icon: <FontAwesomeIcon icon={faEarthAsia} />,
+    icon: <LanguageIcon width="2rem" height="2rem" />,
     title: 'English',
     // Thằng nào có children thì thằng đó có sub menu
     children: {
@@ -79,47 +81,51 @@ const MENU_ITEMS: ItemType[] = [
     },
   },
   {
-    icon: <FontAwesomeIcon icon={faQuestionCircle} />,
+    icon: <QuestionIcon width="2rem" height="2rem" />,
     title: 'Feedback and help',
     to: '/feedback',
   },
   {
-    icon: <FontAwesomeIcon icon={faKeyboard} />,
+    icon: <KeyBoardIcon width="2rem" height="2rem" />,
     title: 'Keyboard shortcuts',
   },
 ];
 
-const CURRENT_USER = true;
 const BUTTON_CURRENT_USER = [
   {
-    icon: faPenToSquare,
+    icon: <UpLoadIcon />,
     title: 'Upload video',
   },
   {
-    icon: faComments,
+    icon: <MessageIcon width="2.6rem" height="2.6rem" />,
     title: 'Messages',
   },
 ];
 
 const USER_MENU = [
   {
-    icon: <FontAwesomeIcon icon={faUser} />,
+    icon: <UserIcon width="2rem" height="2rem" />,
     title: 'View profile',
     to: '/@hoa',
   },
   {
-    icon: <FontAwesomeIcon icon={faCoins} />,
+    icon: <CoinIcon width="2rem" height="2rem" />,
     title: 'Coins',
     to: '/coin',
   },
   {
-    icon: <FontAwesomeIcon icon={faGear} />,
+    icon: <AnalyticsIcon width="2rem" height="2rem" />,
+    title: 'View Analytics',
+    to: '/analytics',
+  },
+  {
+    icon: <SettingIcon width="2rem" height="2rem" />,
     title: 'Settings',
     to: '/settings',
   },
   ...MENU_ITEMS,
   {
-    icon: <FontAwesomeIcon icon={faSignOut} />,
+    icon: <LogoutIcon width="2rem" height="2rem" />,
     title: 'Log out',
     to: '/logout',
     separate: true,
@@ -167,9 +173,7 @@ function Header() {
               {BUTTON_CURRENT_USER.map(({ title, icon }, index) => {
                 return (
                   <Tippy key={index} delay={[0, 100]} content={title} placement="bottom">
-                    <button className={cx('action__btn')}>
-                      <FontAwesomeIcon icon={icon} />
-                    </button>
+                    <button className={cx('action__btn')}>{icon}</button>
                   </Tippy>
                 );
               })}
@@ -183,7 +187,7 @@ function Header() {
 
           <PopperMenu items={CURRENT_USER ? USER_MENU : MENU_ITEMS}>
             {CURRENT_USER ? (
-              <img
+              <Image
                 className={cx('user-avatar')}
                 src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/f75993e97bd5424690cb3c702fc88b0d~c5_100x100.jpeg?x-expires=1658556000&x-signature=ajmuY0tgC5n%2BpEpCalJoF%2BfY6JI%3D"
                 alt="Đào Lê Phương Hoa"

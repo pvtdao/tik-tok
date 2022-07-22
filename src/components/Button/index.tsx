@@ -20,6 +20,10 @@ function Button({
   className = '',
   leftIcon,
   rightIcon,
+  color,
+  blackWhite,
+  borderColor,
+  outlined,
   ...restProps
 }: ButtonSchema) {
   let Component: any = 'button';
@@ -48,18 +52,26 @@ function Button({
 
   const classes = cx('wrapper', {
     primary,
-    outlined: restProps.outlined,
+    outlined: outlined,
     small: restProps.small,
     large: restProps.large,
     text: restProps.text,
     disabled: restProps.disabled,
     rounded: restProps.rounded,
+    'black-white': blackWhite,
     // Thêm class tùy ý vô button
     [className]: className,
   });
 
   return (
-    <Component className={classes} {..._props}>
+    <Component
+      style={{
+        color: color && color,
+        border: borderColor && `1px solid ${borderColor}`,
+      }}
+      className={classes}
+      {..._props}
+    >
       {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
       <span className={cx('title')}>{children}</span>
       {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
